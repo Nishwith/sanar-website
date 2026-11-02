@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-label="SANAR">
+  <!-- SANAR's blue geometric brand mark. -->
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D9FF"/><stop offset="1" stop-color="#0866FF"/></linearGradient>
+    <linearGradient id="b" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0866FF"/><stop offset="1" stop-color="#0A3FB8"/></linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="9" fill="#050B18"/>
+  <path d="M8 6h24l-8 8H8z" fill="url(#a)"/>
+  <path d="M8 14h8l8 8H8z" fill="url(#b)"/>
+  <path d="M16 22h16v6H16z" fill="url(#a)" opacity=".92"/>
+  <path d="M8 30h24l-8 6H8z" fill="url(#b)"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SANAR IT Solutions</title>
+  <desc id="desc">Software development for businesses worldwide</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071426"/><stop offset="1" stop-color="#050b18"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#0866ff"/><stop offset="1" stop-color="#00d9ff"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#0866ff" stop-opacity=".38"/><stop offset="1" stop-color="#0866ff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="1040" cy="160" rx="410" ry="340" fill="url(#glow)"/>
+  <g fill="none" stroke="#7ebcff" stroke-opacity=".15">
+    <path d="M760 50h420M760 90h420M760 130h420M760 170h420M760 210h420M760 250h420M760 290h420M760 330h420M760 370h420M760 410h420M760 450h420M760 490h420M760 530h420M800 20v570M840 20v570M880 20v570M920 20v570M960 20v570M1000 20v570M1040 20v570M1080 20v570M1120 20v570M1160 20v570"/>
+  </g>
+  <g transform="translate(86 82)">
+    <path d="M0 0h74L48 26H0zM0 26h26l26 26H0zM26 52h52v20H26zM0 78h74L48 98H0z" fill="url(#accent)"/>
+    <text x="96" y="57" fill="#f4f8ff" font-family="Arial,sans-serif" font-size="30" font-weight="700" letter-spacing="1">SANAR IT SOLUTIONS</text>
+  </g>
+  <text x="86" y="290" fill="#00d9ff" font-family="Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="5">SOFTWARE · DESIGN · AUTOMATION</text>
+  <text x="82" y="386" fill="#f4f8ff" font-family="Arial,sans-serif" font-size="65" font-weight="700" letter-spacing="-2">We Engineer</text>
+  <text x="82" y="462" fill="#7ebcff" font-family="Arial,sans-serif" font-size="65" font-weight="700" letter-spacing="-2">What’s Next.</text>
+  <text x="86" y="525" fill="#c5d2e5" font-family="Arial,sans-serif" font-size="23">For businesses worldwide</text>
+  <rect x="86" y="565" width="125" height="5" rx="2.5" fill="url(#accent)"/>
+</svg>
