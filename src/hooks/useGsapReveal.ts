@@ -1,57 +1,90 @@
-import { useLayoutEffect, type RefObject } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLayoutEffect, type RefObject } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Progressive reveals for a section. Marks:
- *   [data-reveal]        → fade + rise
- *   [data-reveal-stagger] → children fade + rise in sequence
- *   [data-mask]          → heading line slides up from a clipped mask
- *
- * Content is never hidden permanently: with reduced motion nothing is
- * animated, and each reveal runs once when it approaches the viewport.
- */
-export function useGsapReveal(scope: RefObject<HTMLElement | null>, reduced: boolean) {
+export function useGsapReveal(
+  scope: RefObject<HTMLElement | null>,
+  reduced: boolean,
+) {
   useLayoutEffect(() => {
-    const root = scope.current
-    if (!root || reduced) return
+    const root = scope.current;
 
-    const markers = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal], [data-reveal-stagger], [data-mask]'))
-    const tweens: gsap.core.Tween[] = []
-    const animate = (el: HTMLElement) => {
-      if (el.hasAttribute('data-reveal')) {
-        tweens.push(gsap.from(el, { opacity: 0, y: 28, duration: 0.9, ease: 'power3.out' }))
-      }
-      if (el.hasAttribute('data-reveal-stagger')) {
-        tweens.push(gsap.from(Array.from(el.children), { opacity: 0, y: 36, duration: 0.85, ease: 'power3.out', stagger: 0.12 }))
-      }
-      if (el.hasAttribute('data-mask')) {
-        const inner = el.querySelectorAll<HTMLElement>('.mask__inner')
-        tweens.push(gsap.from(inner, { yPercent: 110, duration: 1, ease: 'power4.out', stagger: 0.1 }))
-      }
-    }
+    if (!root || reduced) return;
 
-    if (!('IntersectionObserver' in window)) {
-      markers.forEach(animate)
-      return () => tweens.forEach((tween) => tween.kill())
-    }
+    const ctx = gsap.context(() => {
+      // 1. Standard reveal
+      const revealElements =
+        root.querySelectorAll<HTMLElement>("[data-reveal]");
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return
-        observer.unobserve(entry.target)
-        animate(entry.target as HTMLElement)
-      })
-    }, { rootMargin: '0px 0px -10% 0px' })
-    markers.forEach((el) => observer.observe(el))
+      revealElements.forEach((el) => {
+        gsap.from(el, {
+          autoAlpha: 0,
+          y: 10,
+          duration: 0.8,
+          ease: "power2.out",
+          clearProps: "transform,opacity,visibility",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            once: true,
+          },
+        });
+      });
+
+      // 2. Staggered reveal
+      const staggerElements = root.querySelectorAll<HTMLElement>(
+        "[data-reveal-stagger]",
+      );
+
+      staggerElements.forEach((el) => {
+        const children = Array.from(el.children);
+
+        if (!children.length) return;
+
+        gsap.from(children, {
+          autoAlpha: 0,
+          y: 10,
+          duration: 0.75,
+          stagger: 0.08,
+          ease: "power2.out",
+          clearProps: "transform,opacity,visibility",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            once: true,
+          },
+        });
+      });
+
+      // 3. Masked text reveal
+      const maskElements = root.querySelectorAll<HTMLElement>("[data-mask]");
+
+      maskElements.forEach((el) => {
+        const inner = el.querySelectorAll<HTMLElement>(".mask__inner");
+
+        if (!inner.length) return;
+
+        gsap.from(inner, {
+          yPercent: 100,
+          duration: 0.85,
+          stagger: 0.06,
+          ease: "power3.out",
+          clearProps: "transform",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            once: true,
+          },
+        });
+      });
+    }, root);
 
     return () => {
-      observer.disconnect()
-      tweens.forEach((tween) => tween.kill())
-    }
-  }, [scope, reduced])
+      ctx.revert();
+    };
+  }, [scope, reduced]);
 }
 
-export { gsap, ScrollTrigger }
+export { gsap, ScrollTrigger };

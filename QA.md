@@ -3,6 +3,7 @@
 Automated checks run in headless Chromium (Playwright) against both the dev server and the **production build** (`vite preview`). Date: 2026-11-01.
 
 ## Result
+
 - `npm run lint`: 0 warnings, 0 errors.
 - `npm run build`: succeeded (`tsc -b` + `vite build`), JS 378 kB (126.7 kB gzip), CSS 36 kB (10.6 kB gzip).
 - 43/43 functional checks passed (dev and production build).
@@ -10,6 +11,7 @@ Automated checks run in headless Chromium (Playwright) against both the dev serv
 - No horizontal overflow, and no content outside the viewport, at 1440, 1024, 768, 390 and 360 px. Smallest text is 11.5 px (uppercase labels).
 
 ## Functional checks performed
+
 Skip link (hidden at rest, appears on Tab) · keyboard Tab reaches below-the-fold service CTAs before any scroll (regression test for a bug found and fixed in this session) · nav links scroll to Services/Products/About/Contact/Home · active link tracks scroll · nav turns solid on scroll · hero CTAs and product badge targets · all in-page anchors resolve · Vishwakarmans CTA = `https://vishwakarmans.netlify.app/`, `target=_blank`, `rel="noopener noreferrer"` · service CTAs link to `#contact` and pre-select the matching topic · unconfigured contact shows no invented email/phone, submit disabled, no WhatsApp control · footer year is current · title/description/5 Open Graph tags/`lang`, one H1, no canonical · `/robots.txt` and `/favicon.svg` return 200 · mobile menu: opens, `aria-expanded`, scroll lock, focus moves in, Escape closes and returns focus, link closes and scrolls, Tab stays in the menu · buttons ≥40 px tall on mobile · reduced motion: no hidden content, no offset heading masks, timeline fully lit, no infinite animations running.
 
 Configured-contact path was checked on a separate dev instance using **throwaway test values** passed through env vars (not saved anywhere): `mailto:` and `tel:` hrefs correct in contact section and footer, submit enabled, enquiry builds a prefilled `mailto:` URL, still no WhatsApp control.
@@ -17,13 +19,14 @@ Configured-contact path was checked on a separate dev instance using **throwaway
 Visual review: every section inspected at 1440 and 390; products, services and approach also at 1024 and 768. Layout fixes made after review: intro heading line breaks, AI card CTA underline, preview-frame proportions, even timeline rhythm, contrast of the eyebrow on the dark panel, footer divider, mobile frame order.
 
 ## Initial QA limitations (2026-11-01; superseded where noted below)
+
 - The initial build environment could not capture Vishwakarmans screenshots from its live test site. Owner-provided image files are now present and are used as resized WebP derivatives; see the SEO update below.
 - The earlier report treated the logo as missing. `public/assets/logo/logo.png` is present and the optimized WebP version is now used on the site.
 - Real-device Safari/Firefox, screen-reader walkthrough, and a production deployment are still not covered by this browser review.
 
 ## Update: SEO and local search (2026-11-02)
 
-- Owner-confirmed production host `https://sanaritsolutions.com` is now used by the canonical tag, Open Graph URL/image, Organization data, sitemap, and robots directive. The user confirmed global service; no street address or office location is published.
+- Owner-confirmed production host `https://www.sanaritsolutions.com` is now used by the canonical tag, Open Graph URL/image, Organization data, sitemap, and robots directive. The user confirmed global service; no street address or office location is published.
 - Homepage metadata targets software development for Hyderabad and global businesses. Navigation includes crawlable About, Services, Products, Our Process, and Contact links. All service cards link to the contact section.
 - Added Organization/contact/service catalog JSON-LD, an SVG social preview, a one-URL XML sitemap, and a commercial-intent keyword plan. Image intrinsic dimensions and fetch priority are set for the product showcase.
 - Production `npm run build` passed after these changes. Browser inspection of the rendered app found one H1, no missing in-page anchor targets, no horizontal overflow at 320px, and no failed images after lazy images were scrolled into view.
@@ -42,8 +45,8 @@ Visual review: every section inspected at 1440 and 390; products, services and a
 - Compared desktop at 1440 px with mobile at 430, 390, 375, 360, and 320 px in the production browser. All six service labels fit, the navbar and announcement stay within the viewport, and no horizontal overflow or browser console errors appeared. The announcement still links to Products. Production build and lint passed.
 - Follow-up dev-server regression fix: the custom 404 middleware now passes Vite's `/@…` virtual modules and source-file requests through to Vite. Reloaded the dev page and an unknown route in Chromium; the app/modules loaded, the unknown route showed the branded 404, and the console had no errors.
 
-
 ## Update: round 2 (hero, one-screen sections, contact, product theme)
+
 - Hero simplified (three layered planes, no cube/rings, calmer background, stronger text contrast).
 - Every section fits one viewport (section height and visible content both ≤ viewport) at 1920×1080, 1440×900, 1366×768 and 1280×720. Phones/tablets flow naturally.
 - Contact form removed. Phone, email, WhatsApp (prefilled message) and Email buttons added. All verified by test: `tel:+919014350017`, `mailto:sanarit.sols@gmail.com`, `https://wa.me/919014350017?text=…` (new tab, `noopener`). The +91 country code is an assumption.

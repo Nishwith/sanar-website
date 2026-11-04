@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sanaritsolutions.com/sitemap.xml
+Sitemap: https://www.sanaritsolutions.com/sitemap.xml
